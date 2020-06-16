@@ -25,7 +25,7 @@ FLASK_APP=web_app flask db upgrade
 # Basilica
 '''sh
 import basilica
-with basilica.Connection('0d0eac92-48c9-b3df-d2af-73b972de69c5') as c:
+with basilica.Connection('API_KEY') as c:
     embeddings = c.embed_sentences(["Hello world!", "How are you?"])
     print(list(embeddings)) # [[0.8556405305862427, ...], ...]
 '''
