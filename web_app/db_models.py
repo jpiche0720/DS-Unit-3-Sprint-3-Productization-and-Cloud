@@ -5,22 +5,27 @@ db = SQLAlchemy()
 
 migrate = Migrate()
 
+
 class User(db.Model):
     id = db.Column(db.BigInteger, primary_key=True)
-    screen_name = db.Column(db.String(128), nullable=False)
+    username = db.Column(db.String(128), nullable=False)
     name = db.Column(db.String)
     location = db.Column(db.String)
     followers_count = db.Column(db.Integer)
-    #lateset_tweet_id = db.Column(db.BigInteger)
+
+    def __repr__(self):
+        return {'User':self.username, 'name':self.name}
 
 
 class Tweet(db.Model):
     id = db.Column(db.BigInteger, primary_key=True)
     user_id = db.Column(db.BigInteger, db.ForeignKey('user.id'))
-    full_text = db.Column(db.String(500))
+    text = db.Column(db.Unicode(300))
+    user = db.relationship('User', backref=db.backref('tweet', lazy=True))
     embedding = db.Column(db.PickleType)
 
-    user = db.relationship('User', backref=db.backref('tweets', lazy=True))
+    def __repr__(self):
+        return {'User':self.user, 'Tweet':self.text}
 
 
 
@@ -35,11 +40,7 @@ def parse_records(database_records):
     Example: parse_records(User.query.all())
 
     Returns: a list of dictionaries, each corresponding to a record, like...
-        [
-            {"id": 1, "title": "Book 1"},
-            {"id": 2, "title": "Book 2"},
-            {"id": 3, "title": "Book 3"},
-        ]
+    
     """
     parsed_records = []
     for record in database_records:

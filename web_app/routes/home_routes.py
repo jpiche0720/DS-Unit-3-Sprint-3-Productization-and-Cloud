@@ -6,7 +6,7 @@ home_routes = Blueprint('home_routes',__name__)
 
 def index():
     print('Visiting About Page')
-    return f'Hello World'
+    return 'Hello World'
 
 @home_routes.route('/about')
 

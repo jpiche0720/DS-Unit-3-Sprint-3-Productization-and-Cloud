@@ -14,24 +14,25 @@ update `work_notes.md` each day with the following:
 
 
 # Setup
-'''sh
+```py
 pipenv install
-'''
+```
 # Migrate the database
-'''sh
+```py
 FLASK_APP=web_app flask db init
 FLASK_APP=web_app flask db migrate
 FLASK_APP=web_app flask db upgrade
+```
 # Basilica
-'''sh
+```py
 import basilica
 with basilica.Connection('API_KEY') as c:
     embeddings = c.embed_sentences(["Hello world!", "How are you?"])
     print(list(embeddings)) # [[0.8556405305862427, ...], ...]
-'''
+```
 # Usage
 
-'''sh
+```py
 FLASK_APP=web_app flask run
-'''
+```
 
